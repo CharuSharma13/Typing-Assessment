@@ -1,0 +1,31 @@
+.chart-container {
+  width: 100%;
+}
+
+.year-selector {
+  position: absolute;
+  right: 0%;
+  top: 5px;
+}
+
+.year {
+  display: inline-block;
+  padding: 5px 10px;
+  margin-right: 10px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.year.selected {
+  background-color: #75c3ff;
+  color: #fff;
+}
+.custom-tooltip {
+  width: 200px; /* Set the desired width */
+  white-space: normal; /* Allow text to wrap */
+  background-color: rgba(0, 0, 0, 0.7); /* Customize background color */
+  color: white; /* Customize text color */
+  padding: 10px; /* Add padding */
+  border-radius: 4px; /* Add border-radius */
+}

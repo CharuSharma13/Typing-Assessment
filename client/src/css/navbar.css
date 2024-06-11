@@ -1,0 +1,99 @@
+.navbar {
+  background: #ffffff;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  position: relative;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.051);
+  z-index: 999;
+}
+
+.navbar .page {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 66px;
+  position: relative;
+}
+
+.navbar h1 {
+  letter-spacing: 3px;
+  font-weight: normal;
+}
+.navbar_login-btn {
+  text-decoration: none;
+  color: #fff;
+}
+.navbar_login-btn div {
+  padding: 10px 20px;
+  align-self: center;
+  background-color: rgb(32, 177, 255);
+  transition: 0.5s;
+  border-radius: 0.25em;
+  cursor: pointer;
+  text-align: center;
+}
+.navbar h1 span {
+  font-weight: bolder;
+}
+
+.site-header__dropdown-profile {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: absolute;
+  padding: 12px 20px;
+  background-color: #fff;
+  border: 1px solid #ccccccff;
+  right: 10px;
+  top: 90%;
+}
+.site-header__dropdown-profile::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  right: 10px;
+  width: 7px;
+  height: 7px;
+  background-color: #fff;
+  transform: rotate(45deg);
+  border-top: 1px solid #cccccc;
+  border-left: 1px solid #cccccc;
+}
+
+.site-header__dropdown-profile div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+.site-header__dropdown-profile > div img {
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+}
+.site-header__dropdown-profile > div > div {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.site-header__dropdown-profile > button {
+  cursor: pointer;
+}
+
+.site-header__dropdown-profile > div a {
+  color: rgb(32, 177, 255);
+  font-size: 14px;
+}
+
+.site-header__user-profile-icon {
+  border-radius: 50%;
+  padding: 8px 18px;
+  width: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(32, 177, 255);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}

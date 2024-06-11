@@ -1,0 +1,97 @@
+.user-score-info {
+  width: 97%;
+  box-shadow: 3px -4px 15px 8px rgba(0, 0, 0, 0.051);
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-around;
+  position: relative;
+  align-items: center;
+}
+
+.user-score_chart {
+  height: 250px;
+}
+.user-profile {
+  height: 100px;
+  width: 100px;
+  border-radius: 10px;
+}
+
+.user-rank {
+  position: absolute;
+  bottom: 100%;
+  left: -20px;
+  z-index: 100;
+}
+
+.user-rank3 {
+  filter: invert(51%) sepia(82%) saturate(389%) hue-rotate(349deg)
+    brightness(92%) contrast(93%);
+}
+
+.user-rank2 {
+  filter: invert(84%) sepia(11%) saturate(7%) hue-rotate(342deg) brightness(92%)
+    contrast(87%);
+}
+
+.user-rank1 {
+  filter: invert(88%) sepia(19%) saturate(4806%) hue-rotate(354deg)
+    brightness(100%) contrast(109%);
+}
+.profile-wrapper {
+  display: flex;
+}
+
+.profile-section {
+  width: 70%;
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.user-score_stats p {
+  font-size: 18px;
+  padding: 3px 0;
+}
+.user-score_stats div {
+  padding-top: 12px;
+}
+
+.user-score_stats span {
+  font-weight: bold;
+  color: #000;
+}
+.user-score_stats div span {
+  color: gray;
+}
+
+@media screen and (max-width: 768px) {
+  .profile-wrapper {
+    flex-direction: column;
+  }
+  .profile-wrapper .profile-section {
+    width: 100%;
+  }
+  .profile-wrapper .profile-section div {
+    width: 100%;
+  }
+  .user-profile-info {
+    margin: 0px 0px 10px !important;
+  }
+  .user-profile-info h3 {
+    word-wrap: normal !important;
+    padding: 0px !important;
+  }
+  .user-profile-info img {
+    display: none;
+  }
+  .user-score-info {
+    flex-direction: column;
+  }
+  .sidebar-section {
+    width: 100% !important;
+    margin-top: 0px !important;
+  }
+}
