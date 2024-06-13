@@ -45,6 +45,7 @@ Typing Assessment is a web-based application designed to evaluate and improve yo
       `id` int NOT NULL AUTO_INCREMENT,
       `user_id` int NOT NULL,
       `chars_per_min` int NOT NULL,
+      `words_per_min` int NOT NULL,
       `accuracy_percent` int NOT NULL,
       `completed_on` datetime NOT NULL,
       `total_score` float NOT NULL,
