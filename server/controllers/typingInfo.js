@@ -1,6 +1,16 @@
 const poolPromise = require("../db/connect");
+
+const validateToken = (req) => {
+  const authorizationHeader = req.headers["authorization"];
+  let jwtToken = authorizationHeader.substr(7);
+  if (jwtToken === null || jwtToken === undefined || jwtToken === "") {
+    throw error;
+  }
+};
+
 const getUserScores = async (req, res) => {
   try {
+    validateToken(req);
     const pool = await poolPromise;
     const { user_id } = req.query;
 
@@ -27,6 +37,7 @@ const getUserScores = async (req, res) => {
 
 const getUserTypingInfo = async (req, res) => {
   try {
+    validateToken(req);
     const pool = await poolPromise;
     const { user_id } = req.query;
     const date = new Date();
@@ -45,16 +56,26 @@ const getUserTypingInfo = async (req, res) => {
 };
 const handleUserTypingInfo = async (req, res) => {
   try {
-    console.log("hey");
+    validateToken(req);
     const pool = await poolPromise;
     const date = new Date();
-    const { user_id, chars_per_min, accuracy_percent } = req.body;
-    let totalScore = (chars_per_min / 300) * (accuracy_percent / 100);
-    totalScore = totalScore < 1 ? Number(totalScore.toFixed(3)) : 1;
-    const updateQuery = `INSERT INTO typinginfo (user_id, chars_per_min, accuracy_percent, completed_on, total_score) values (?,?,?,?,?)`;
+    const { user_id, chars_per_min, words_per_min, accuracy_percent } = req.body;
+    const AccuracyWeight = 0.4;
+    const WordWeight = 0.3;
+    const CharWeight = 0.3;
+    const weightedAccuracyScore = AccuracyWeight * accuracy_percent;
+    const weightedWordCountScore = WordWeight * ((words_per_min / 200) * 100);
+    const weightedCharCountScore = CharWeight * ((chars_per_min / 1000) * 100);
+    const totalScore = (
+      weightedAccuracyScore +
+      weightedWordCountScore +
+      weightedCharCountScore
+    ).toFixed(3);
+    const updateQuery = `INSERT INTO typinginfo (user_id, chars_per_min, words_per_min, accuracy_percent, completed_on, total_score) values (?,?,?,?,?,?)`;
     const updateData = [
       user_id,
       chars_per_min,
+      words_per_min,
       accuracy_percent,
       date,
       totalScore,

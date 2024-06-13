@@ -10,6 +10,6 @@ const {
 router.route("/register").post(register);
 router.route("/login").post(login);
 router.route("/logout").get(logout);
-router.route("/resetPassword").post(resetPassword);
+router.route("/resetPassword").put(resetPassword);
 
 module.exports = router;
