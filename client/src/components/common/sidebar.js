@@ -11,7 +11,13 @@ function Sidebar({ userData, setRank }) {
   useEffect(() => {
     const getScores = async () => {
       await axios
-        .get(`${process.env.REACT_APP_SERVER_URL}/v1/game/info/user`)
+        .get(`/v1/game/info/user`, {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + userData.token,
+          },
+        })
         .then((res) => {
           if (res.status === 200) {
             setValues([...res.data]);

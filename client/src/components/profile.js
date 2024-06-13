@@ -23,9 +23,13 @@ function Profile({ userData }) {
         searchParams.get("user_id") || (userData && userData.user_id) || null;
       if (userId !== null && userData) {
         await axios
-          .get(
-            `${process.env.REACT_APP_SERVER_URL}/v1/game/info?user_id=${userId}`
-          )
+          .get(`/v1/game/info?user_id=${userId}`, {
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + userData.token,
+            },
+          })
           .then((res) => {
             if (res.status === 200) {
               // localStorage.setItem("userScores", JSON.stringify(res.data));
@@ -77,8 +81,8 @@ function Profile({ userData }) {
           monthly: scores.monthly,
           name: name,
           user_id: user_id,
-          profile_created_at: `${profile_created_at.getMonth()}/${profile_created_at.getFullYear()}`,
-          total_score: total_score * 100,
+          profile_created_at: `${profile_created_at.getMonth()+1}/${profile_created_at.getFullYear()}`,
+          total_score: total_score,
           total_contribution: total_count,
           monthly_contribution: monthly_contribution,
         });

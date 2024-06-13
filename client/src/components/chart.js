@@ -66,7 +66,7 @@ const MonthlyLineChart = ({ data }) => {
       label: year,
       data: yearData.map((item) => ({
         x: monthToString(item.month), // Convert month number to month name
-        y: item.total_score * 100,
+        y: item.total_score,
         count: item.contribution_count,
       })),
       fill: false, // Don't fill area under the line

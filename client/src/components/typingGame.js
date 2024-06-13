@@ -26,13 +26,20 @@ const App = ({ userData }) => {
           user_id: userData.user_id,
           email: userData.email,
           chars_per_min: charCount,
+          words_per_min: wordCount,
           accuracy_percent: accuracy,
         };
-        await axios
-          .post(`${process.env.REACT_APP_SERVER_URL}/v1/game/info`, data)
-          .catch((error) => {
-            console.log(error);
-          });
+        await axios(`/v1/game/info`,      {
+          method: "post",
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${userData.token}`,
+          },
+          data: data,
+        } ).catch((error) => {
+          console.log(error);
+        });
       }
     };
     saveData();

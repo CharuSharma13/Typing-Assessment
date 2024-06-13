@@ -51,6 +51,10 @@
   gap: 20px;
 }
 
+.user-score_stats {
+  width: 50%;
+}
+
 .user-score_stats p {
   font-size: 18px;
   padding: 3px 0;
@@ -68,6 +72,9 @@
 }
 
 @media screen and (max-width: 768px) {
+  .user-score_stats {
+    width: auto;
+  }
   .profile-wrapper {
     flex-direction: column;
   }

@@ -65,6 +65,7 @@ function TypingBox({
       setText(dummyText);
       setInput("");
       setCurWord(dummyText[0]);
+      inputRef.current.disabled = false;
       inputRef.current.focus();
       setDone([]);
       setStarted(false);
@@ -79,6 +80,7 @@ function TypingBox({
     const interval = setInterval(() => {
       setTimer((prev) => {
         if (prev === 0) {
+          inputRef.current.disabled = true;
           handleOpen();
           clearInterval(interval);
           return 0;

@@ -59,9 +59,12 @@ const LoginForm = ({ formDetails, userData }) => {
       setErrorMessage(errorMessages[0]);
     } else {
       try {
-        const res = await axios.post(
-          `${process.env.REACT_APP_SERVER_URL}/auth/${formDetails.identifier}`,
-          userData
+        const res = await axios(
+          `/auth/${formDetails.identifier}`,
+          {
+            method: formDetails.identifier === "resetPassword" ? "put" : "post",
+            data: userData,
+          }       
         );
 
         if (res.status === 200) {
