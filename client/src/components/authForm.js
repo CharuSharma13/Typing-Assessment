@@ -4,7 +4,7 @@ import axios from "axios";
 import Form from "./common/form";
 import hero from "../images/hero.svg";
 
-const LoginForm = ({ formDetails, userData }) => {
+const AuthForm = ({ formDetails, userData }) => {
   axios.defaults.withCredentials = true;
 
   let [searchParams] = useSearchParams();
@@ -69,8 +69,11 @@ const LoginForm = ({ formDetails, userData }) => {
 
         if (res.status === 200) {
           localStorage.setItem("isLoggedIn", true);
-          window.location.href = searchParams.get("destination") || "/";
-          // navigate(searchParams.get("destination") || "/");
+          if (formDetails.identifier === "resetPassword") {
+            setErrorMessage(res.data.message);
+          } else {
+            window.location.href = searchParams.get("destination") || "/";
+          }
         }
       } catch (error) {
         const { status, data } = error.response;
@@ -97,4 +100,4 @@ const LoginForm = ({ formDetails, userData }) => {
   );
 };
 
-export default LoginForm;
+export default AuthForm;

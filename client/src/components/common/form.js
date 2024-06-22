@@ -34,7 +34,7 @@ const Form = ({
             <input
               className="input-box"
               type={items === "password" ? items : "text"}
-              fieldType={items}
+              fieldtype={items}
               key={index}
               placeholder={items.charAt(0).toUpperCase() + items.slice(1)}
               onChange={(e) => {

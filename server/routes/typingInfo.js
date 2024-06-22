@@ -3,11 +3,11 @@ const router = express.Router();
 const {
   getUserTypingInfo,
   handleUserTypingInfo,
-  getUserScores,
+  getTopUsers,
 } = require("../controllers/typingInfo");
 
 router.route("/").get(getUserTypingInfo);
 router.route("/").post(handleUserTypingInfo);
-router.route("/user").get(getUserScores);
+router.route("/user").get(getTopUsers);
 
 module.exports = router;

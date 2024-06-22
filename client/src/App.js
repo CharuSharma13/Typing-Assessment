@@ -1,5 +1,5 @@
 import "./App.css";
-import Form from "./components/form";
+import Form from "./components/authForm";
 import TypingGame from "./components/typingGame";
 import useWindowDimensions from "./utilities/utilities";
 import {

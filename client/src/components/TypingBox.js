@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import { words } from "../data/words";
-import axios from "axios";
 
 const getCountOfSame = (s1, s2) => {
   let n = s1.length;
@@ -33,7 +32,6 @@ const getRandom = (arr, n) => {
 };
 
 function TypingBox({
-  userData,
   setWordCount,
   setCharCount,
   setTimer,
@@ -46,7 +44,6 @@ function TypingBox({
   setAccuracy,
 }) {
   const [text, setText] = useState(null);
-  const [input, setInput] = useState("");
   const [curWord, setCurWord] = useState("");
   const [done, setDone] = useState([]);
   const [started, setStarted] = useState(false);
@@ -63,7 +60,6 @@ function TypingBox({
     if (restart) {
       let dummyText = getRandom(words, 300);
       setText(dummyText);
-      setInput("");
       setCurWord(dummyText[0]);
       inputRef.current.disabled = false;
       inputRef.current.focus();
@@ -76,7 +72,6 @@ function TypingBox({
   }, [restart]);
 
   const startTimer = () => {
-    setStarted(true);
     const interval = setInterval(() => {
       setTimer((prev) => {
         if (prev === 0) {
@@ -91,14 +86,17 @@ function TypingBox({
   };
   const handleChange = (e) => {
     if (!started) {
+      setStarted(true);
       startTimer();
     }
-    if (e.target.value.indexOf(" ") >= 0) {
+    let inputText = e.target.value;
+    if (inputText.indexOf(" ") >= 0) {
       return;
     }
-    let inputText = e.target.value;
     let pendingWord = curWord;
+
     pendingWord = pendingWord.substring(getCountOfSame(inputText, pendingWord));
+
     let pendingWords = text;
     pendingWords[0] = pendingWord;
     setText(pendingWords);
@@ -109,15 +107,13 @@ function TypingBox({
         word: inputText,
         correct: curWord.startsWith(inputText),
       });
-      setDone(doneWords);
     } else {
       doneWords[doneWords.length - 1] = {
         word: inputText,
         correct: curWord.startsWith(inputText),
       };
-      setDone(doneWords);
     }
-    setInput(e.target.value);
+    setDone(doneWords);
   };
 
   const handleSpacePress = (e) => {
@@ -125,38 +121,32 @@ function TypingBox({
       if (inputRef.current.value === "") {
         return;
       }
-      let e, w;
-      if (input !== curWord) {
-        let doneWords = done;
-        let doneLength = doneWords.length;
+      let e = errorCount,
+        w = wordCount;
+      let doneWords = done;
+      let doneLength = done.length;
+      let lastWord = doneWords[doneLength - 1].word;
+      if (lastWord !== curWord) {
         doneWords[doneLength - 1] = {
-          word: doneWords[doneLength - 1].word,
+          word: lastWord,
           correct: false,
         };
-        e = errorCount;
-        w = wordCount;
         setErrorCount((prev) => prev + 1);
-        if (wordCount > 0) {
-          setAccuracy(Math.floor((w / (e + w + 1)) * 100));
-        } else {
-          setAccuracy(0);
-        }
         setDone(doneWords);
+        e = e + 1;
       } else {
         setWordCount((prev) => prev + 1);
-        e = errorCount;
-        w = wordCount;
-        if (wordCount + 1 > 0) {
-          setAccuracy(Math.floor(((w + 1) / (e + w + 1)) * 100));
-        } else {
-          setAccuracy(0);
-        }
-        setCharCount((prev) => prev + done[done.length - 1].word.length);
+        setCharCount((prev) => prev + lastWord.length);
+        w = w + 1;
+      }
+      if (w > 0) {
+        setAccuracy(Math.floor((w / (e + w)) * 100));
+      } else {
+        setAccuracy(0);
       }
       const pendingWords = text;
       pendingWords.shift();
       setText(pendingWords);
-      setInput("");
       setWordStart(true);
       setCurWord(pendingWords[0]);
       setDone((prev) => [...prev, { word: "", correct: true }]);
@@ -179,12 +169,12 @@ function TypingBox({
       </div>
       <input
         type="text"
-        value={input}
+        value={done.length > 0 ? done[done.length - 1].word : ""}
         onChange={handleChange}
         onKeyPress={handleSpacePress}
         ref={inputRef}
       />
-      <div className="doing">
+      <div className="doing pending-words">
         {text && text.map((el, i) => <span key={i}>{el} </span>)}
       </div>
     </div>

@@ -6,27 +6,14 @@ const validateToken = (req) => {
   if (jwtToken === null || jwtToken === undefined || jwtToken === "") {
     throw error;
   }
-};
+}
 
-const getUserScores = async (req, res) => {
+const getTopUsers = async (req, res) => {
   try {
     validateToken(req);
     const pool = await poolPromise;
-    const { user_id } = req.query;
-
-    const date = new Date();
-    let userIdQuery = " ";
-    let updateData = [];
-    if (user_id) {
-      userIdQuery = ` where user_id =? `;
-      updateData.push(user_id);
-    }
-    // SELECT AVG(a.total_score), a.user_id, b.name FROM typinginfo as a JOIN users as b ON a.user_id=b.id GROUP BY a.user_id ORDER BY AVG(a.total_score) DESC LIMIT 10;
-    const updateQuery =
-      `SELECT  a.user_id, b.name FROM typinginfo as a JOIN users as b ON a.user_id=b.id` +
-      userIdQuery +
-      `GROUP BY a.user_id ORDER BY AVG(a.total_score) DESC LIMIT 10`;
-    const [rows] = await pool.query(updateQuery, updateData);
+    const updateQuery = `SELECT  a.user_id, b.name FROM typinginfo as a JOIN users as b ON a.user_id=b.id GROUP BY a.user_id ORDER BY AVG(a.total_score) DESC LIMIT 10`;
+    const [rows] = await pool.query(updateQuery);
     res.status(200).json(rows);
   } catch (error) {
     res
@@ -90,4 +77,4 @@ const handleUserTypingInfo = async (req, res) => {
   }
 };
 
-module.exports = { getUserTypingInfo, handleUserTypingInfo, getUserScores };
+module.exports = { getUserTypingInfo, handleUserTypingInfo, getTopUsers };
