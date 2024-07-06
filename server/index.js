@@ -4,7 +4,6 @@ const gameRoute = require("./routes/typingInfo");
 const poolPromise = require("./db/connect");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-const session = require("express-session");
 
 require("dotenv").config({ path: "./.env" });
 
@@ -28,17 +27,6 @@ app.use(cookieParser());
 // parse url-encoded bodies (as send by html forms)
 app.use(express.urlencoded({ extended: true }));
 
-app.use(
-  session({
-    key: "token",
-    secret: process.env.JWT_SECRET_KEY,
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      expires: new Date(Date.now() + parseInt(process.env.TOKEN_MAX_AGE) * 60 * 60 * 1000),
-    },
-  })
-);
 app.use("/auth", authRoute);
 app.use("/v1/stats", gameRoute);
 
