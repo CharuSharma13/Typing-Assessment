@@ -11,7 +11,7 @@ function Sidebar({ userData, setRank }) {
   useEffect(() => {
     const getScores = async () => {
       await axios
-        .get(`/v1/game/info/user`, {
+        .get(`/v1/stats/top-users`, {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",

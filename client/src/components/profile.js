@@ -23,7 +23,7 @@ function Profile({ userData }) {
         searchParams.get("user_id") || (userData && userData.user_id) || null;
       if (userId !== null && userData) {
         await axios
-          .get(`/v1/game/info?user_id=${userId}`, {
+          .get(`/v1/stats?user_id=${userId}`, {
             headers: {
               Accept: "application/json",
               "Content-Type": "application/json",

@@ -29,7 +29,7 @@ const App = ({ userData }) => {
           words_per_min: wordCount,
           accuracy_percent: accuracy,
         };
-        await axios(`/v1/game/info`,      {
+        await axios(`/v1/stats`,      {
           method: "post",
           headers: {
             Accept: 'application/json',

@@ -40,7 +40,7 @@ app.use(
   })
 );
 app.use("/auth", authRoute);
-app.use("/v1/game/info", gameRoute);
+app.use("/v1/stats", gameRoute);
 
 const start = async () => {
   try {

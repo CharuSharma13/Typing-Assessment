@@ -8,6 +8,6 @@ const {
 
 router.route("/").get(getUserTypingInfo);
 router.route("/").post(handleUserTypingInfo);
-router.route("/user").get(getTopUsers);
+router.route("/top-users").get(getTopUsers);
 
 module.exports = router;
