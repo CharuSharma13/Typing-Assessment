@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Chart as ChartJs, defaults } from "chart.js/auto";
-import { Line } from "react-chartjs-2";
 import axios from "axios";
 import "../../css/sidebar.css";
 import Rank from "../../images/rank.svg";

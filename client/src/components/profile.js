@@ -66,7 +66,7 @@ function Profile({ userData }) {
           setRank(null);
 
           rankData.filter((item, index) => {
-            return item.user_id == userId && index < 3
+            return item.user_id === userId && index < 3
               ? setRank(index + 1)
               : null;
           });

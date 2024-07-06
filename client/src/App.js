@@ -1,7 +1,6 @@
 import "./App.css";
 import Form from "./components/authForm";
 import TypingGame from "./components/typingGame";
-import useWindowDimensions from "./utilities/utilities";
 import {
   RouterProvider,
   createBrowserRouter,
@@ -59,7 +58,6 @@ function App() {
 }
 
 const Root = ({ userData }) => {
-  const { width } = useWindowDimensions();
   return (
     <>
       <Navbar userData={userData} />
